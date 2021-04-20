@@ -8,9 +8,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,7 +31,7 @@ public class SummonerApiClient {
         name = name.replaceAll(" ", "%20");
         System.out.println(name);
 
-        final String request_Url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + api_Key;
+        final String request_Url = "https://kr.api.riotgames.com/lol/summoner/zv4/summoners/by-name/" + name + "?api_key=" + api_Key;
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet getRequest = new HttpGet(request_Url);
@@ -43,8 +40,9 @@ public class SummonerApiClient {
             if (response.getStatusLine().getStatusCode() == 200) {
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
-
                 summonerDto = objectMapper.readValue(body, SummonerDto.class);
+                System.out.print("닉네임 : " + summonerDto.getName() + "레벨 : " + summonerDto.getSummonerLevel());
+
             } else {
                 System.out.println("response is error : " + response.getStatusLine().getStatusCode());
             }

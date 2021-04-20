@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Data
 public class SummonerDto {
 
     private String accountId;
