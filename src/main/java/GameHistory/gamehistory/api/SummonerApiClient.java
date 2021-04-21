@@ -22,16 +22,15 @@ public class SummonerApiClient {
     @Autowired
     RestTemplate restTemplate;
 
-    private final String api_Key = "RGAPI-7763d190-cb1d-4a81-8dbc-7c7e5f15fb74";
+    private final String api_Key = "RGAPI-c223b4ee-01eb-4b74-9c1d-e7916d522227";
 
     public SummonerDto requestSummoner(String name) {
         ObjectMapper objectMapper = new ObjectMapper();
         SummonerDto summonerDto = null;
 
         name = name.replaceAll(" ", "%20");
-        System.out.println(name);
 
-        final String request_Url = "https://kr.api.riotgames.com/lol/summoner/zv4/summoners/by-name/" + name + "?api_key=" + api_Key;
+        final String request_Url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + api_Key;
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet getRequest = new HttpGet(request_Url);
@@ -41,7 +40,7 @@ public class SummonerApiClient {
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
                 summonerDto = objectMapper.readValue(body, SummonerDto.class);
-                System.out.print("닉네임 : " + summonerDto.getName() + "레벨 : " + summonerDto.getSummonerLevel());
+                System.out.println("닉네임 : " + summonerDto.getName() + " 레벨 : " + summonerDto.getSummonerLevel());
 
             } else {
                 System.out.println("response is error : " + response.getStatusLine().getStatusCode());

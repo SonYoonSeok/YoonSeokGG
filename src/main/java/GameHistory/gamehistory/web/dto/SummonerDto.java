@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Data
 public class SummonerDto {
 
     private String accountId;
@@ -17,6 +16,7 @@ public class SummonerDto {
     private String puuid;
     private Long summonerLevel;
 
+    public SummonerDto() { }
     public SummonerDto(String accountId, int profileIconId, Long revisionDate, String name, String id, String puuid, Long summonerLevel) {
         this.accountId = accountId;
         this.profileIconId = profileIconId;

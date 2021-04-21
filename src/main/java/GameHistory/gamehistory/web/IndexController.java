@@ -12,4 +12,9 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/summoner/")
+    public String findSummoner() {
+        return "findSummoner";
+    }
 }
