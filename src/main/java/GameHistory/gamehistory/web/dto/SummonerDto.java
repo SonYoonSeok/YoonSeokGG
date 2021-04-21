@@ -26,4 +26,10 @@ public class SummonerDto {
         this.puuid = puuid;
         this.summonerLevel = summonerLevel;
     }
+
+    @Override
+    public String toString() {
+        return "Summoner Data [accountId=" + accountId + ", profileIconId=" + profileIconId + ", revisonDate=" + revisionDate + ", name=" + name + ", id=" + id + ", puuid=" + puuid
+                + ", summonerLevel=" + summonerLevel + "]";
+    }
 }

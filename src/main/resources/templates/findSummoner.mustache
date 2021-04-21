@@ -1,3 +1,11 @@
 {{>layout/header}}
-    <h1> : 의 전적</h1>
+
+{{#Summoner}}
+    <img src="http://ddragon.leagueoflegends.com/cdn/10.11.1/img/profileicon/{{profileIconId}}.png" height="150" width="150">
+    <p style="font-size:20px; font-family:'Malgun Gothic'";>
+        소환사 닉네임 : {{name}}<br/>
+        레벨 : {{summonerLevel}}<br/>
+    </p>
+{{/Summoner}}
+
 {{>layout/footer}}

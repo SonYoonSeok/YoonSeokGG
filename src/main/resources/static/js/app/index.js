@@ -10,7 +10,7 @@ var main = {
 
         $.ajax({
             type: 'GET',
-            url: '/api/v1/summoners/'+name,
+            url: '/summoner/'+name,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
         }).done(function(res) {
