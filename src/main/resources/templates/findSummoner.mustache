@@ -16,6 +16,18 @@
                 {{leaguePoints}}LP / {{wins}}승 {{losses}}패<br/>
             </p>
         </div>
+        {{#MatchLists}}
+            {{#Match}}
+                <tr>
+                    <td>
+                        {{role}}<br/>
+                        {{champion}}<br/>
+                        {{lane}}<br/>
+                        {{participants}}<br/>
+                    </td>
+                </tr>
+                {{/Match}}
+        {{/MatchLists}}
     {{/LeagueEntry}}
 {{/Summoner}}
 

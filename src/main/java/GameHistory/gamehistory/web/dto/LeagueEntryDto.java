@@ -20,9 +20,10 @@ public class LeagueEntryDto {
     private boolean veteran;
     private boolean freshBlood;
     private boolean inactive;
+    private MiniSeriesDTO miniSeries;
 
     public LeagueEntryDto() {}
-    public LeagueEntryDto(String leagueId, String summonerId, String summonerName, String queueType, String tier, String rank, int leaguePoints, int wins, int losses, boolean hotStreak, boolean veteran, boolean freshBlood, boolean inactive) {
+    public LeagueEntryDto(String leagueId, String summonerId, String summonerName, String queueType, String tier, String rank, int leaguePoints, int wins, int losses, boolean hotStreak, boolean veteran, boolean freshBlood, boolean inactive, MiniSeriesDTO miniSeries) {
         this.leagueId = leagueId;
         this.summonerId = summonerId;
         this.summonerName = summonerName;
@@ -36,11 +37,12 @@ public class LeagueEntryDto {
         this.veteran = veteran;
         this.freshBlood = freshBlood;
         this.inactive = inactive;
+        this.miniSeries = miniSeries;
     }
 
     @Override
     public String toString() {
         return "LeagueEntry Data [leaguetId=" + leagueId + ", summonerId=" + summonerId + ", summonerName=" + summonerName + ", queueType=" + queueType + ", tier=" + tier
-                + ", rank=" + rank + ", leaguePoints=" + leaguePoints + ", wins=" + wins + ", losses=" + losses + ", hotStreak=" + hotStreak + "]";
+                + ", rank=" + rank + ", leaguePoints=" + leaguePoints + ", wins=" + wins + ", losses=" + losses + "]";
     }
 }

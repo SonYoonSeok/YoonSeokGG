@@ -1,6 +1,7 @@
 package GameHistory.gamehistory.util;
 
-import GameHistory.gamehistory.web.dto.LeagueEntryDto;
+import GameHistory.gamehistory.web.dto.MatchDto;
+import GameHistory.gamehistory.web.dto.MatchlistDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,16 +10,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-public class LeagueEntryParser {
+public class MatchParser {
 
-    private String api_Key = "RGAPI-b878c1e1-28af-4fb9-9fd4-1e5d115de5eb";
+private String api_Key = "RGAPI-b878c1e1-28af-4fb9-9fd4-1e5d115de5eb";
 
-    public LeagueEntryDto requestLeagueEntry(String id) {
-
+    public MatchDto requestMatch(Long matchId) {
         ObjectMapper objectMapper = new ObjectMapper();
-        LeagueEntryDto leagueEntryDto = null;
+        MatchDto matchDto = new MatchDto();
 
-        final String request_Url = "https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/" + id + "?api_key=" + api_Key;
+    final String request_Url = "https://kr.api.riotgames.com/lol/match/v4/matches/" + matchId + "?api_key=" + api_Key;
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet getRequest = new HttpGet(request_Url);
@@ -27,18 +27,16 @@ public class LeagueEntryParser {
             if (response.getStatusLine().getStatusCode() == 200) {
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
-                body = body.substring(1, body.length() - 1);
-
-                leagueEntryDto = objectMapper.readValue(body, LeagueEntryDto.class);
+                matchDto = objectMapper.readValue(body, MatchDto.class);
 
             } else {
-                System.out.println(" League Entry response is error : " + response.getStatusLine().getStatusCode());
+                System.out.println("Match response is error : " + response.getStatusLine().getStatusCode());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return leagueEntryDto;
+        return matchDto;
 
     }
 }

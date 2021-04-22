@@ -11,7 +11,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class SummonerParser {
 
-    private String api_Key = "RGAPI-c223b4ee-01eb-4b74-9c1d-e7916d522227";
+    private String api_Key = "RGAPI-b878c1e1-28af-4fb9-9fd4-1e5d115de5eb";
 
     public SummonerDto requestSummoner(String name) {
         ObjectMapper objectMapper = new ObjectMapper();

@@ -11,13 +11,13 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class MatchListParser {
 
-    private String api_Key = "RGAPI-c223b4ee-01eb-4b74-9c1d-e7916d522227";
+    private String api_Key = "RGAPI-b878c1e1-28af-4fb9-9fd4-1e5d115de5eb";
 
     public MatchlistDto requestMatchList(String accountId) {
         ObjectMapper objectMapper = new ObjectMapper();
         MatchlistDto matchlistDto = null;
 
-        final String request_Url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountId + "?api_key=" + api_Key;
+        final String request_Url = "https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/" + accountId + "?endIndex=10&api_key=" + api_Key;
         try {
             HttpClient client = HttpClientBuilder.create().build();
             HttpGet getRequest = new HttpGet(request_Url);
