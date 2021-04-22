@@ -1,6 +1,8 @@
 package GameHistory.gamehistory.web;
 
+import GameHistory.gamehistory.util.LeagueEntryParser;
 import GameHistory.gamehistory.util.SummonerParser;
+import GameHistory.gamehistory.web.dto.LeagueEntryDto;
 import GameHistory.gamehistory.web.dto.SummonerDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +27,23 @@ public class IndexController {
 
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
+
+        //Summoner
         SummonerDto summonerDto = new SummonerDto();
         SummonerParser summonerParser = new SummonerParser();
         summonerDto = summonerParser.requestSummoner(name);
-        System.out.println(summonerDto.toString());
 
-        model.addAttribute("Summoner",summonerDto);
+        //League Entry
+        LeagueEntryDto leagueEntryDto = new LeagueEntryDto();
+        LeagueEntryParser leagueEntryParser = new LeagueEntryParser();
+        leagueEntryDto = leagueEntryParser.requestLeagueEntry(summonerDto.getId());
+
+        System.out.println(summonerDto.toString());
+        System.out.println(leagueEntryDto.toString());
+
+        model.addAttribute("Summoner", summonerDto);
+        model.addAttribute("LeagueEntry", leagueEntryDto);
+
         return "findSummoner";
     }
 
