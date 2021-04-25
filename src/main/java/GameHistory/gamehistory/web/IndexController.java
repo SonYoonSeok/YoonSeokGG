@@ -27,6 +27,9 @@ public class IndexController {
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
 
+        //champion.json
+        
+
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
         SummonerParser summonerParser = new SummonerParser();
@@ -48,6 +51,9 @@ public class IndexController {
         MatchParser matchParser = new MatchParser();
         matchDto = matchParser.requestMatch(matchLists.get(0).getGameId());
 
+        //Team
+        List<TeamStatsDto> teamStatsDto = matchDto.getTeams();
+
         System.out.println(summonerDto.toString());
         System.out.println(leagueEntryDto.toString());
 
@@ -56,6 +62,7 @@ public class IndexController {
         model.addAttribute("TotalMatch", matchlistDto);
         model.addAttribute("MatchLists", matchLists);
         model.addAttribute("Match", matchDto);
+        model.addAttribute("TeamStats", teamStatsDto);
 
         return "findSummoner";
     }

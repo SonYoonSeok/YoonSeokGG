@@ -10,12 +10,12 @@ import java.util.List;
 public class ParticipantIdentityDto {
 
     private int participantId;
-    private List<PlayerDto> player;
+    private PlayerDto player;
 
     public ParticipantIdentityDto() {
     }
 
-    public ParticipantIdentityDto(int participantId, List<PlayerDto> player) {
+    public ParticipantIdentityDto(int participantId, PlayerDto player) {
         this.participantId = participantId;
         this.player = player;
     }

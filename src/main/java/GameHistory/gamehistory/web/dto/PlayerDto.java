@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class PlayerDto {
     private int profileIcon;
-    private int accountId;
+    private String accountId;
     private String matchHistoryUri;
     private String currentAccountId;
     private String currentPlatformId;
@@ -18,7 +18,7 @@ public class PlayerDto {
     public PlayerDto() {
     }
 
-    public PlayerDto(int profileIcon, int accountId, String matchHistoryUri, String currentAccountId, String currentPlatformId, String summonerName, String summonerId, String platformId) {
+    public PlayerDto(int profileIcon, String accountId, String matchHistoryUri, String currentAccountId, String currentPlatformId, String summonerName, String summonerId, String platformId) {
         this.profileIcon = profileIcon;
         this.accountId = accountId;
         this.matchHistoryUri = matchHistoryUri;

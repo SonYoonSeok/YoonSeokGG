@@ -18,15 +18,18 @@
         </div>
         {{#MatchLists}}
             {{#Match}}
-                <tr>
-                    <td>
-                        {{role}}<br/>
-                        {{champion}}<br/>
-                        {{lane}}<br/>
-                        {{participants}}<br/>
-                    </td>
-                </tr>
-                {{/Match}}
+                {{#TeamStats}}
+                    <tr>
+                        <td>
+                            {{role}}<br/>
+                            {{champion}}<br/>
+                            {{lane}}<br/>
+                            {{win}}<br/>
+                            <br/>
+                        </td>
+                    </tr>
+                {{/TeamStats}}
+            {{/Match}}
         {{/MatchLists}}
     {{/LeagueEntry}}
 {{/Summoner}}
