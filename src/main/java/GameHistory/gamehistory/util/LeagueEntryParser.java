@@ -11,7 +11,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class LeagueEntryParser {
 
-    private String api_Key = "RGAPI-2658636f-81d8-4609-ad90-94388a2c12e4";
+    private String api_Key = "RGAPI-d693c860-169b-40ac-a701-7dcf31a63a44";
 
     public LeagueEntryDto requestLeagueEntry(String id) {
 

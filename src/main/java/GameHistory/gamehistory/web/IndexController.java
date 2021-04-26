@@ -4,14 +4,19 @@ import GameHistory.gamehistory.util.LeagueEntryParser;
 import GameHistory.gamehistory.util.MatchListParser;
 import GameHistory.gamehistory.util.MatchParser;
 import GameHistory.gamehistory.util.SummonerParser;
+import GameHistory.gamehistory.util.json.ChampionJsonParser;
 import GameHistory.gamehistory.web.dto.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONObject;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +31,10 @@ public class IndexController {
 
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
-
-        //champion.json
-        
+        //Champion JSON
+        ChampionJsonParser championJsonParser = new ChampionJsonParser();
+        JSONObject championJsonObject = championJsonParser.getChampionJson();
+        System.out.println(championJsonObject.toString());
 
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
