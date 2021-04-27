@@ -19,7 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 build.gradle
-application-riot.properties
+application.properties
 .idea
 *.iws
 *.iml

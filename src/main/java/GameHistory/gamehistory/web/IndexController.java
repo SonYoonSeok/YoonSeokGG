@@ -9,6 +9,7 @@ import GameHistory.gamehistory.web.dto.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,32 +30,40 @@ public class IndexController {
         return "index";
     }
 
+    @Autowired
+    SummonerParser summonerParser = new SummonerParser();
+
+    @Autowired
+    LeagueEntryParser leagueEntryParser = new LeagueEntryParser();
+
+    @Autowired
+    MatchListParser matchListParser = new MatchListParser();
+
+    @Autowired
+    MatchParser matchParser = new MatchParser();
+
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
         //Champion JSON
         ChampionJsonParser championJsonParser = new ChampionJsonParser();
         JSONObject championJsonObject = championJsonParser.getChampionJson();
-        System.out.println(championJsonObject.toString());
+        //System.out.println(championJsonObject.toString());
 
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
-        SummonerParser summonerParser = new SummonerParser();
         summonerDto = summonerParser.requestSummoner(name);
 
         //League Entry
         LeagueEntryDto leagueEntryDto = new LeagueEntryDto();
-        LeagueEntryParser leagueEntryParser = new LeagueEntryParser();
         leagueEntryDto = leagueEntryParser.requestLeagueEntry(summonerDto.getId());
 
         //MatchList
         MatchlistDto matchlistDto = new MatchlistDto();
-        MatchListParser matchListParser = new MatchListParser();
         matchlistDto = matchListParser.requestMatchList(summonerDto.getAccountId());
         List<MatchReferenceDto> matchLists = matchlistDto.getMatches();
 
         //Match
         MatchDto matchDto = new MatchDto();
-        MatchParser matchParser = new MatchParser();
         matchDto = matchParser.requestMatch(matchLists.get(0).getGameId());
 
         //Team

@@ -8,10 +8,14 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LeagueEntryParser {
 
-    private String api_Key = "RGAPI-d693c860-169b-40ac-a701-7dcf31a63a44";
+    @Value("${api.key}")
+    private String api_Key;
 
     public LeagueEntryDto requestLeagueEntry(String id) {
 
