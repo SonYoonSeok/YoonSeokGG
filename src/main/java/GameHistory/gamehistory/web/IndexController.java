@@ -44,10 +44,12 @@ public class IndexController {
 
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
+
         //Champion JSON
         ChampionJsonParser championJsonParser = new ChampionJsonParser();
-        JSONObject championJsonObject = championJsonParser.getChampionJson();
-        //System.out.println(championJsonObject.toString());
+        JSONObject championJsonObject = championJsonParser.getChampionJson();   //VO 클래스 만들어야됨
+//        JSONObject championJsonData = championJsonObject.getJSONObject("data");
+//        System.out.println(championJsonData.get("Gragas"));
 
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
@@ -72,11 +74,11 @@ public class IndexController {
                 break;
             }
         }
+        participantIndex -= 1;
         ParticipantDto participantDto = matchDto.getParticipants().get(participantIndex);
         ParticipantStatsDto participantStatsDto = matchDto.getParticipants().get(participantIndex).getStats();
 
         //Team
-
         System.out.println(summonerDto.toString());
 
         if (leagueEntryDto.size() == 1) {
