@@ -23,8 +23,6 @@ public class SummonerParser {
 
         name = name.replaceAll(" ", "%20");
 
-        System.out.println(api_Key);
-
         final String request_Url = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + api_Key;
         try {
             HttpClient client = HttpClientBuilder.create().build();
@@ -34,6 +32,7 @@ public class SummonerParser {
             if (response.getStatusLine().getStatusCode() == 200) {
                 ResponseHandler<String> handler = new BasicResponseHandler();
                 String body = handler.handleResponse(response);
+                //summonerDto = objectMapper.readValue(body, SummonerDto.class);
                 summonerDto = objectMapper.readValue(body, SummonerDto.class);
 
             } else {

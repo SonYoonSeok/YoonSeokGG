@@ -1,37 +1,39 @@
 {{>layout/header}}
 
 {{#Summoner}}
+    <div style="display: flex; align-items: bottom;">
+        <img src="http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/{{profileIconId}}.png" height="150" width="150" style="margin-left: 50px">
+        <p style="font-size:25px; font-family:'Malgun Gothic'; font-weight:bold; margin-top: 50px;">
+            소환사 닉네임 : {{name}}<br/>
+            레벨 : {{summonerLevel}}<br/>
+        </p>
+    </div>
     {{#LeagueEntry}}
         <div style="display: flex; align-items: bottom;">
-            <img src="http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/{{profileIconId}}.png" height="150" width="150" style="margin-left: 50px">
-            <p style="font-size:25px; font-family:'Malgun Gothic'; font-weight:bold; margin-top: 50px;">
-                소환사 닉네임 : {{name}}<br/>
-                레벨 : {{summonerLevel}}<br/>
-            </p>
-        </div>
-        <div style="display: flex; align-items: bottom;">
             <img src="/images/Emblem_{{tier}}.png" height="230" width="230" style="margin-left: 20px;">
-            <p style="font-size:30px; font-weight:bold; margin-top: 60px">
+            <p style="font-size:30px; font-weight:bold; margin-top: 35px">
+                {{queueType}}<br/>
                 {{tier}} {{rank}}<br/>
                 {{leaguePoints}}LP / {{wins}}승 {{losses}}패<br/>
             </p>
         </div>
-        {{#MatchLists}}
-            {{#Match}}
-                {{#TeamStats}}
+    {{/LeagueEntry}}
+    {{#Matches}}
+        {{#Match}}
+            {{#Participant}}
+                {{#ParticipantStats}}
                     <tr>
                         <td>
-                            {{role}}<br/>
-                            {{champion}}<br/>
-                            {{lane}}<br/>
+                            {{championId}}<br/>
+                            {{kills}} / {{deaths}} / {{assists}}<br/>
                             {{win}}<br/>
                             <br/>
                         </td>
                     </tr>
-                {{/TeamStats}}
-            {{/Match}}
-        {{/MatchLists}}
-    {{/LeagueEntry}}
+                {{/ParticipantStats}}
+            {{/Participant}}
+        {{/Match}}
+    {{/Matches}}
 {{/Summoner}}
 
 {{>layout/footer}}

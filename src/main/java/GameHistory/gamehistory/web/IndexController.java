@@ -54,30 +54,49 @@ public class IndexController {
         summonerDto = summonerParser.requestSummoner(name);
 
         //League Entry
-        LeagueEntryDto leagueEntryDto = new LeagueEntryDto();
-        leagueEntryDto = leagueEntryParser.requestLeagueEntry(summonerDto.getId());
+        List<LeagueEntryDto> leagueEntryDto = leagueEntryParser.requestLeagueEntry(summonerDto.getId());
 
         //MatchList
         MatchlistDto matchlistDto = new MatchlistDto();
         matchlistDto = matchListParser.requestMatchList(summonerDto.getAccountId());
-        List<MatchReferenceDto> matchLists = matchlistDto.getMatches();
+        List<MatchReferenceDto> matches = matchlistDto.getMatches();
 
         //Match
-        MatchDto matchDto = new MatchDto();
-        matchDto = matchParser.requestMatch(matchLists.get(0).getGameId());
+        MatchDto matchDto = new MatchDto(); //이거 리스트로 만들어야됨
+        matchDto = matchParser.requestMatch(matches.get(0).getGameId());
+
+        int participantIndex = -1;
+        for (int i = 0; i < 10; i++) {
+            if (matchDto.getParticipantIdentities().get(i).getPlayer().getSummonerName().equals(summonerDto.getName())) {
+                participantIndex = matchDto.getParticipantIdentities().get(i).getParticipantId();
+                break;
+            }
+        }
+        ParticipantDto participantDto = matchDto.getParticipants().get(participantIndex);
+        ParticipantStatsDto participantStatsDto = matchDto.getParticipants().get(participantIndex).getStats();
 
         //Team
-        List<TeamStatsDto> teamStatsDto = matchDto.getTeams();
 
         System.out.println(summonerDto.toString());
-        System.out.println(leagueEntryDto.toString());
+
+        if (leagueEntryDto.size() == 1) {
+            System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
+            //LeagueEntryDto leagueEntryFlex = new LeagueEntryDto(null, null, null, null, "RANKED_FLEX_SR", "UNRANKED", 0, 0, 0, false, false, false, false, null);
+            model.addAttribute("LeagueEntry", leagueEntryDto);
+
+        } else if (leagueEntryDto.size() == 2){
+            System.out.println(leagueEntryDto.get(1).getQueueType() + " : " + leagueEntryDto.get(1).getTier());
+            System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
+            model.addAttribute("LeagueEntry", leagueEntryDto);
+
+        }
 
         model.addAttribute("Summoner", summonerDto);
-        model.addAttribute("LeagueEntry", leagueEntryDto);
         model.addAttribute("TotalMatch", matchlistDto);
-        model.addAttribute("MatchLists", matchLists);
+        model.addAttribute("Matches", matches);
         model.addAttribute("Match", matchDto);
-        model.addAttribute("TeamStats", teamStatsDto);
+        model.addAttribute("Participant", participantDto);
+        model.addAttribute("ParticipantStats", participantStatsDto);
 
         return "findSummoner";
     }

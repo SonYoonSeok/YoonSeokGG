@@ -40,9 +40,9 @@ public class LeagueEntryDto {
         this.miniSeries = miniSeries;
     }
 
-    @Override
-    public String toString() {
-        return "LeagueEntry Data [leaguetId=" + leagueId + ", summonerId=" + summonerId + ", summonerName=" + summonerName + ", queueType=" + queueType + ", tier=" + tier
-                + ", rank=" + rank + ", leaguePoints=" + leaguePoints + ", wins=" + wins + ", losses=" + losses + "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "LeagueEntry Data [leagueId=" + leagueId + ", summonerId=" + summonerId + ", summonerName=" + summonerName + ", queueType=" + queueType + ", tier=" + tier
+//                + ", rank=" + rank + ", leaguePoints=" + leaguePoints + ", wins=" + wins + ", losses=" + losses + "]";
+//    }
 }
