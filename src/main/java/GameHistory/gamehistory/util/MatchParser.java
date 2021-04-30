@@ -1,7 +1,6 @@
 package GameHistory.gamehistory.util;
 
 import GameHistory.gamehistory.web.dto.MatchDto;
-import GameHistory.gamehistory.web.dto.MatchlistDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

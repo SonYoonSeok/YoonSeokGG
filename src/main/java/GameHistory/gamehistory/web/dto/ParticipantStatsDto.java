@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class ParticipantStatsDto {
 
+    private int championId;
     private int participantId;
     private int item0;
     private int item1;

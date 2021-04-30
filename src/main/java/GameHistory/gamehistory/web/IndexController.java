@@ -1,25 +1,20 @@
 package GameHistory.gamehistory.web;
 
-import GameHistory.gamehistory.util.LeagueEntryParser;
-import GameHistory.gamehistory.util.MatchListParser;
-import GameHistory.gamehistory.util.MatchParser;
-import GameHistory.gamehistory.util.SummonerParser;
+import GameHistory.gamehistory.util.*;
 import GameHistory.gamehistory.util.json.ChampionJsonParser;
 import GameHistory.gamehistory.web.dto.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.net.URL;
+import javax.swing.text.View;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -47,9 +42,8 @@ public class IndexController {
 
         //Champion JSON
         ChampionJsonParser championJsonParser = new ChampionJsonParser();
-        JSONObject championJsonObject = championJsonParser.getChampionJson();   //VO 클래스 만들어야됨
-//        JSONObject championJsonData = championJsonObject.getJSONObject("data");
-//        System.out.println(championJsonData.get("Gragas"));
+        JSONObject championJsonObject = championJsonParser.getChampionJson();
+        JSONObject championJsonData = championJsonObject.getJSONObject("data");
 
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
@@ -64,19 +58,38 @@ public class IndexController {
         List<MatchReferenceDto> matches = matchlistDto.getMatches();
 
         //Match
-        MatchDto matchDto = new MatchDto(); //이거 리스트로 만들어야됨
-        matchDto = matchParser.requestMatch(matches.get(0).getGameId());
+        List<ViewMatchDto> viewMatchDto = new ArrayList<>();
+        List<MatchDto> matchDto = new ArrayList<>();
+        List<ParticipantDto> participantDto = new ArrayList<>();
+        List<ParticipantStatsDto> participantStatsDto = new ArrayList<>();
+        for (int i = 0; i < matchlistDto.getEndIndex(); i++) {
+            matchDto.add(matchParser.requestMatch(matches.get(i).getGameId()));
+
+        }
 
         int participantIndex = -1;
-        for (int i = 0; i < 10; i++) {
-            if (matchDto.getParticipantIdentities().get(i).getPlayer().getSummonerName().equals(summonerDto.getName())) {
-                participantIndex = matchDto.getParticipantIdentities().get(i).getParticipantId();
-                break;
+        for (int i = 0; i < matchlistDto.getEndIndex(); i++) {
+            for (int j = 0; j < 10; j++) {
+                //System.out.println(matchDto.get(i).getParticipantIdentities().get(j).getPlayer().getSummonerName());
+                if (matchDto.get(i).getParticipantIdentities().get(j).getPlayer().getSummonerName().equals(summonerDto.getName())) {
+                    ViewMatchParser viewMatchParser = new ViewMatchParser();
+                    ViewMatchDto vmd = new ViewMatchDto();
+                    ParticipantStatsDto psd = new ParticipantStatsDto();
+
+                    participantIndex = matchDto.get(i).getParticipantIdentities().get(j).getParticipantId() - 1;
+                    participantDto.add(matchDto.get(i).getParticipants().get(participantIndex));
+                    participantStatsDto.add(matchDto.get(i).getParticipants().get(participantIndex).getStats());
+
+                    psd = matchDto.get(i).getParticipants().get(participantIndex).getStats();
+                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin());
+
+                    viewMatchDto.add(vmd);
+                    break;
+                }
             }
         }
-        participantIndex -= 1;
-        ParticipantDto participantDto = matchDto.getParticipants().get(participantIndex);
-        ParticipantStatsDto participantStatsDto = matchDto.getParticipants().get(participantIndex).getStats();
+        //ParticipantDto participantDto = matchDto.getParticipants().get(participantIndex);
+        //ParticipantStatsDto participantStatsDto = matchDto.getParticipants().get(participantIndex).getStats();
 
         //Team
         System.out.println(summonerDto.toString());
@@ -97,6 +110,7 @@ public class IndexController {
         model.addAttribute("TotalMatch", matchlistDto);
         model.addAttribute("Matches", matches);
         model.addAttribute("Match", matchDto);
+        model.addAttribute("VMD", viewMatchDto);
         model.addAttribute("Participant", participantDto);
         model.addAttribute("ParticipantStats", participantStatsDto);
 
