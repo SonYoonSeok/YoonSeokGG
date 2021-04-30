@@ -81,22 +81,20 @@ public class IndexController {
                     participantStatsDto.add(matchDto.get(i).getParticipants().get(participantIndex).getStats());
 
                     psd = matchDto.get(i).getParticipants().get(participantIndex).getStats();
-                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin());
+                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), psd.getItem0(),
+                            psd.getItem1(), psd.getItem2(), psd.getItem3(), psd.getItem4(), psd.getItem5());
 
                     viewMatchDto.add(vmd);
                     break;
                 }
             }
         }
-        //ParticipantDto participantDto = matchDto.getParticipants().get(participantIndex);
-        //ParticipantStatsDto participantStatsDto = matchDto.getParticipants().get(participantIndex).getStats();
 
         //Team
         System.out.println(summonerDto.toString());
 
         if (leagueEntryDto.size() == 1) {
             System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
-            //LeagueEntryDto leagueEntryFlex = new LeagueEntryDto(null, null, null, null, "RANKED_FLEX_SR", "UNRANKED", 0, 0, 0, false, false, false, false, null);
             model.addAttribute("LeagueEntry", leagueEntryDto);
 
         } else if (leagueEntryDto.size() == 2){
