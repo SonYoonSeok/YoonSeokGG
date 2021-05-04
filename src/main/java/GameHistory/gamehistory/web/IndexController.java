@@ -3,6 +3,8 @@ package GameHistory.gamehistory.web;
 import GameHistory.gamehistory.util.*;
 import GameHistory.gamehistory.util.json.ChampionJsonParser;
 import GameHistory.gamehistory.web.dto.*;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.swing.text.View;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Controller
@@ -40,11 +44,6 @@ public class IndexController {
     @RequestMapping("/summoner/{name}")
     public String summoner(@PathVariable String name, Model model) {
 
-        //Champion JSON
-        ChampionJsonParser championJsonParser = new ChampionJsonParser();
-        JSONObject championJsonObject = championJsonParser.getChampionJson();
-        JSONObject championJsonData = championJsonObject.getJSONObject("data");
-
         //Summoner
         SummonerDto summonerDto = new SummonerDto();
         summonerDto = summonerParser.requestSummoner(name);
@@ -56,6 +55,12 @@ public class IndexController {
         MatchlistDto matchlistDto = new MatchlistDto();
         matchlistDto = matchListParser.requestMatchList(summonerDto.getAccountId());
         List<MatchReferenceDto> matches = matchlistDto.getMatches();
+
+        //Champion JSON
+        Gson gson = new Gson();
+        ChampionJsonParser championJsonParser = new ChampionJsonParser();
+        JSONObject championJsonObject = championJsonParser.getChampionJson();
+        Map<String , Object> championJson = gson.fromJson(championJsonObject.get("data").toString(), new TypeToken<Map<String, Object>>(){}.getType());
 
         //Match
         List<ViewMatchDto> viewMatchDto = new ArrayList<>();
@@ -69,6 +74,8 @@ public class IndexController {
 
         int participantIndex = -1;
         for (int i = 0; i < matchlistDto.getEndIndex(); i++) {
+            String championName = championJsonParser.getChampionName(championJson, matches.get(i).getChampion()).toString();
+
             for (int j = 0; j < 10; j++) {
                 //System.out.println(matchDto.get(i).getParticipantIdentities().get(j).getPlayer().getSummonerName());
                 if (matchDto.get(i).getParticipantIdentities().get(j).getPlayer().getSummonerName().equals(summonerDto.getName())) {
@@ -79,9 +86,8 @@ public class IndexController {
                     participantIndex = matchDto.get(i).getParticipantIdentities().get(j).getParticipantId() - 1;
                     participantDto.add(matchDto.get(i).getParticipants().get(participantIndex));
                     participantStatsDto.add(matchDto.get(i).getParticipants().get(participantIndex).getStats());
-
                     psd = matchDto.get(i).getParticipants().get(participantIndex).getStats();
-                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), psd.getItem0(),
+                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), championName, psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), psd.getItem0(),
                             psd.getItem1(), psd.getItem2(), psd.getItem3(), psd.getItem4(), psd.getItem5());
 
                     viewMatchDto.add(vmd);
@@ -108,7 +114,7 @@ public class IndexController {
         model.addAttribute("TotalMatch", matchlistDto);
         model.addAttribute("Matches", matches);
         model.addAttribute("Match", matchDto);
-        model.addAttribute("VMD", viewMatchDto);
+        model.addAttribute("ViewMatch", viewMatchDto);
         model.addAttribute("Participant", participantDto);
         model.addAttribute("ParticipantStats", participantStatsDto);
 

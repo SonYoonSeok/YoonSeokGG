@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 public class ChampionJsonParser {
 
@@ -54,6 +55,20 @@ public class ChampionJsonParser {
         }
 
         return responseJson;
+    }
+
+    public static Object getChampionName(Map<String, Object> championJson, Object championId) {
+
+        for (String key : championJson.keySet()) {
+
+            System.out.println("id : " + key.toString() + " Champion Name : " + ((Map)championJson.get(key)).get("id"));
+            if (((Map)championJson.get(key)).get("key").toString().equals(championId.toString())) {
+
+                return ((Map)championJson.get(key)).get("id");
+            }
+        }
+
+        return null;
     }
 
 }
