@@ -3,7 +3,7 @@
 {{#Summoner}}
     <div style="display: flex; align-items: bottom;">
         <img src="http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/{{profileIconId}}.png" height="150" width="150" style="margin-left: 50px">
-        <p style="font-size:25px; font-family:'Malgun Gothic'; font-weight:bold; margin-top: 50px;">
+        <p style="font-size:25px; font-family:'Malgun Gothic'; font-weight:bold; margin-top: 50px; margin-left: 20px;">
             소환사 닉네임 : {{name}}<br/>
             레벨 : {{summonerLevel}}<br/>
         </p>
@@ -12,26 +12,39 @@
 {{#LeagueEntry}}
     <div style="display: flex; align-items: bottom;">
         <img src="/images/Emblem_{{tier}}.png" height="230" width="230" style="margin-left: 20px;">
-        <p style="font-size:30px; font-weight:bold; margin-top: 35px">
+        <p style="font-size:30px; font-weight:bold; margin-top: 35px;">
             {{queueType}}<br/>
             {{tier}} {{rank}}<br/>
             {{leaguePoints}}LP / {{wins}}승 {{losses}}패<br/>
         </p>
     </div>
 {{/LeagueEntry}}
-<hr color="black" size="3px">
+<hr color="black" size="3px" style="font-family: 'Spigel-Bold'">
     <tr>
         <td>
             {{#ViewMatch}}
                 <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/champion/{{championName}}.png"><br/>
-                {{kills}} / {{deaths}} / {{assists}}<br/>
+                <div style="font-size: 25px; margin-left: 15px">
+                    {{r_name}}
+                </div>
+                <div style="font-size: 20px; font-weight: bold; margin-left: 12px">
+                    <span>
+                        {{kills}} /
+                    </span>
+                    <span style="font-color: #c6443e;">
+                        {{deaths}} /
+                    </span>
+                    <span>
+                        {{assists}}<br/>
+                    </span>
+                </div>
                 {{win}}<br/>
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item0}}.png">
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item1}}.png">
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item2}}.png"><br/>
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item3}}.png">
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item4}}.png">
-                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item5}}.png"><br/>
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item0}}.png" width="60px" height="60px">
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item1}}.png" width="60px" height="60px">
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item2}}.png" width="60px" height="60px"><br/>
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item3}}.png" width="60px" height="60px">
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item4}}.png" width="60px" height="60px">
+                <img src="https://ddragon.leagueoflegends.com/cdn/11.8.1/img/item/{{item5}}.png" width="60px" height="60px"><br/>
                 <br/>
                 <hr color="black" size="3px">
             {{/ViewMatch}}

@@ -74,7 +74,8 @@ public class IndexController {
 
         int participantIndex = -1;
         for (int i = 0; i < matchlistDto.getEndIndex(); i++) {
-            String championName = championJsonParser.getChampionName(championJson, matches.get(i).getChampion()).toString();
+            String championName = championJsonParser.getChampionId(championJson, matches.get(i).getChampion()).toString();
+            String r_name = championJsonParser.getChampionName(championJson, matches.get(i).getChampion()).toString();
 
             for (int j = 0; j < 10; j++) {
                 //System.out.println(matchDto.get(i).getParticipantIdentities().get(j).getPlayer().getSummonerName());
@@ -87,7 +88,7 @@ public class IndexController {
                     participantDto.add(matchDto.get(i).getParticipants().get(participantIndex));
                     participantStatsDto.add(matchDto.get(i).getParticipants().get(participantIndex).getStats());
                     psd = matchDto.get(i).getParticipants().get(participantIndex).getStats();
-                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), championName, psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), psd.getItem0(),
+                    vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), championName, r_name, psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), psd.getItem0(),
                             psd.getItem1(), psd.getItem2(), psd.getItem3(), psd.getItem4(), psd.getItem5());
 
                     viewMatchDto.add(vmd);

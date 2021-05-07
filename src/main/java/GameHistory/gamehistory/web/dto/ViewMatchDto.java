@@ -9,6 +9,7 @@ public class ViewMatchDto {
 
     private int championId;
     private String championName;
+    private String r_name;
     private int kills;
     private int deaths;
     private int assists;
