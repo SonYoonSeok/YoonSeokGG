@@ -81,7 +81,7 @@ public class ChampionJsonParser {
                 return ((Map)championJson.get(key)).get("name");
             }
         }
-
+    
         return null;
 
     }

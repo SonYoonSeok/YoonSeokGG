@@ -5,10 +5,21 @@
     <div class="col-md-4">
         <form>
             <div class="form-group">
-                <input type="text" class ="form-control" id="name" autocomplete="false" placeholder="소환사명을 입력하세요.">
-                <a href="/summoner" type="button" class="btn btn-primary" id="btn-summoner-find">검색</a>
+                <input type="text" class ="form-control" name="name" autocomplete="off" placeholder="소환사명을 입력하세요." onKeyPress="a()" id="inp">
+                <button onClick="b()" class="btn btn-primary" id="btn-summoner-find">검색</button>
             </div>
+        </form>
     </div>
+    <script language="JavaScript">
+        var link = "";
+            const a=()=>{
+                const inp = document.getElementById("inp").value;
+                link = inp;
+            }
+            const b=()=>{
+                window.location.href = `/summoner/${link}`
+            }
+    </script>
 </div>
 
 {{>layout/footer}}
