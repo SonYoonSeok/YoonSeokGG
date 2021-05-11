@@ -5,8 +5,8 @@
     <div class="col-md-4">
         <form>
             <div class="form-group">
-                <input type="text" class ="form-control" name="name" autocomplete="off" placeholder="소환사명을 입력하세요." onKeyPress="a()" id="inp">
-                <button onClick="b()" class="btn btn-primary" id="btn-summoner-find">검색</button>
+                <input type="text" class ="form-control" autocomplete="off" placeholder="소환사명을 입력하세요." onKeyUp="a()" id="inp">
+                <a href="#" type = "button" onclick="b()" class="btn btn-primary" id="btn-summoner-find">검색</a>
             </div>
         </form>
     </div>
@@ -15,9 +15,10 @@
             const a=()=>{
                 const inp = document.getElementById("inp").value;
                 link = inp;
+                console.log(link)
             }
             const b=()=>{
-                window.location.href = `/summoner/${link}`
+                window.location.href = "/summoner/" + link;
             }
     </script>
 </div>
