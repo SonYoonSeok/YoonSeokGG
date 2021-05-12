@@ -13,7 +13,9 @@ public class ViewMatchDto {
     private int kills;
     private int deaths;
     private int assists;
+    private double kda;
     private boolean win;
+    private String r_win;
     private int item0;
     private int item1;
     private int item2;
