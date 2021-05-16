@@ -5,7 +5,26 @@
         <img src="http://ddragon.leagueoflegends.com/cdn/11.8.1/img/profileicon/{{profileIconId}}.png" height="150" width="150" style="margin-left: 50px">
         <p style="font-size:25px; font-family:'Malgun Gothic'; font-weight:bold; margin-top: 40px; margin-left: 20px; line-height: 150%">
             소환사 닉네임 : {{name}}<br/>
-            레벨 : {{summonerLevel}}<br/>
+            레벨 : {{summonerLevel}}
+        <div class="col-md-4" style="float: right; margin-left: 400px; margin-top: 30px">
+            <form>
+                <div class="form-group">
+                    <input type="text" class ="form-control" autocomplete="off" placeholder="소환사명을 입력하세요." onKeyUp="a()" id="inp">
+                    <a type = "button" onclick="b()" class="btn btn-primary" id="btn-summoner-find">검색</a>
+                </div>
+            </form>
+        </div>
+        <script language="JavaScript">
+        var link = "";
+            const a=()=>{
+                const inp = document.getElementById("inp").value;
+                link = inp;
+                console.log(link)
+            }
+            const b=()=>{
+                window.location.href = "/summoner/" + link;
+            }
+        </script>
         </p>
     </div>
 {{/Summoner}}

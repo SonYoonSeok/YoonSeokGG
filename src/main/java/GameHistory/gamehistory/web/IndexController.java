@@ -8,8 +8,10 @@ import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,7 +60,8 @@ public class IndexController {
         Gson gson = new Gson();
         ChampionJsonParser championJsonParser = new ChampionJsonParser();
         JSONObject championJsonObject = championJsonParser.getChampionJson();
-        Map<String , Object> championJson = gson.fromJson(championJsonObject.get("data").toString(), new TypeToken<Map<String, Object>>(){}.getType());
+        Map<String, Object> championJson = gson.fromJson(championJsonObject.get("data").toString(), new TypeToken<Map<String, Object>>() {
+        }.getType());
 
         //Match
         List<ViewMatchDto> viewMatchDto = new ArrayList<>();
@@ -108,7 +111,7 @@ public class IndexController {
             System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
             model.addAttribute("LeagueEntry", leagueEntryDto);
 
-        } else if (leagueEntryDto.size() == 2){
+        } else if (leagueEntryDto.size() == 2) {
             System.out.println(leagueEntryDto.get(1).getQueueType() + " : " + leagueEntryDto.get(1).getTier());
             System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
             model.addAttribute("LeagueEntry", leagueEntryDto);
@@ -126,4 +129,9 @@ public class IndexController {
         return "findSummoner";
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public String exceptionHandler(Model model, Exception e) {
+        model.addAttribute("Exception", e);
+        return "error/exception";
+    }
 }
