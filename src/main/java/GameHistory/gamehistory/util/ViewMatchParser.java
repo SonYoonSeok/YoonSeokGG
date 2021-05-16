@@ -7,8 +7,14 @@ public class ViewMatchParser {
     public ViewMatchDto setViewMatch(int championId, String championName, String r_name, int kills, int deaths, int assists, boolean win, String r_win, int item0, int item1, int item2, int item3, int item4, int item5) {
 
         ViewMatchDto matchDto = new ViewMatchDto();
-        double kda = ((double)(kills + assists) / deaths);
-        kda = (double)Math.round(kda*100)/100;
+        double kda;
+        if (deaths != 0) {
+            kda = ((double) (kills + assists) / deaths);
+            kda = (double) Math.round(kda * 100) / 100;
+        } else {
+            kda = kills + assists;
+            kda = (double) Math.round(kda * 100) / 100;
+        }
 
         matchDto.setChampionId(championId);
         matchDto.setChampionName(championName);
