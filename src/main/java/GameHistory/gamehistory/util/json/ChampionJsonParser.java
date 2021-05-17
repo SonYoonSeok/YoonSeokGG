@@ -1,9 +1,7 @@
 package GameHistory.gamehistory.util.json;
 
-import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,7 +59,6 @@ public class ChampionJsonParser {
 
         for (String key : championJson.keySet()) {
 
-            System.out.println("id : " + key.toString() + " Champion Id : " + ((Map)championJson.get(key)).get("id"));
             if (((Map)championJson.get(key)).get("key").toString().equals(championId.toString())) {
 
                 return ((Map)championJson.get(key)).get("id");
@@ -75,7 +72,6 @@ public class ChampionJsonParser {
 
         for (String key : championJson.keySet()) {
 
-            System.out.println("id : " + key.toString() + " Champion Id : " + ((Map)championJson.get(key)).get("name"));
             if (((Map)championJson.get(key)).get("key").toString().equals(championId.toString())) {
 
                 return ((Map)championJson.get(key)).get("name");

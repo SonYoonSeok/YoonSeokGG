@@ -5,17 +5,17 @@ import GameHistory.gamehistory.util.json.ChampionJsonParser;
 import GameHistory.gamehistory.web.dto.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,12 +108,23 @@ public class IndexController {
         System.out.println(summonerDto.toString());
 
         if (leagueEntryDto.size() == 1) {
+            if (leagueEntryDto.get(0).getQueueType().equals("RANKED_FLEX_SR")) {
+                leagueEntryDto.get(0).setQueueType("자유랭크");
+            } else {
+                leagueEntryDto.get(0).setQueueType("솔로랭크");
+            }
             System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
             model.addAttribute("LeagueEntry", leagueEntryDto);
 
         } else if (leagueEntryDto.size() == 2) {
-            System.out.println(leagueEntryDto.get(1).getQueueType() + " : " + leagueEntryDto.get(1).getTier());
-            System.out.println(leagueEntryDto.get(0).getQueueType() + " : " + leagueEntryDto.get(0).getTier());
+            for (int i=1; i>=0; i--) {
+                if (leagueEntryDto.get(i).getQueueType().equals("RANKED_FLEX_SR")) {
+                    leagueEntryDto.get(i).setQueueType("자유랭크");
+                } else {
+                    leagueEntryDto.get(i).setQueueType("솔로랭크");
+                }
+                System.out.println(leagueEntryDto.get(i).getQueueType() + " : " + leagueEntryDto.get(i).getTier());
+            }
             model.addAttribute("LeagueEntry", leagueEntryDto);
 
         }
@@ -127,11 +138,5 @@ public class IndexController {
         model.addAttribute("ParticipantStats", participantStatsDto);
 
         return "findSummoner";
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public String exceptionHandler(Model model, Exception e) {
-        model.addAttribute("Exception", e);
-        return "error/exception";
     }
 }

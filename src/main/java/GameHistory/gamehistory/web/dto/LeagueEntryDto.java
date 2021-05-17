@@ -27,7 +27,6 @@ public class LeagueEntryDto {
         this.leagueId = leagueId;
         this.summonerId = summonerId;
         this.summonerName = summonerName;
-        this.queueType = queueType;
         this.tier = tier;
         this.rank = rank;
         this.leaguePoints = leaguePoints;
