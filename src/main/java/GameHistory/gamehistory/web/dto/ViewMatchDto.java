@@ -3,6 +3,8 @@ package GameHistory.gamehistory.web.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 public class ViewMatchDto {
@@ -22,4 +24,6 @@ public class ViewMatchDto {
     private int item3;
     private int item4;
     private int item5;
+    private int level;
+    private double damageAmount;
 }

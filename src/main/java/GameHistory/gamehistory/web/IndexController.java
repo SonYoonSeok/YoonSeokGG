@@ -5,17 +5,14 @@ import GameHistory.gamehistory.util.json.ChampionJsonParser;
 import GameHistory.gamehistory.web.dto.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import javassist.NotFoundException;
+
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -85,6 +82,7 @@ public class IndexController {
                     ViewMatchParser viewMatchParser = new ViewMatchParser();
                     ViewMatchDto vmd = new ViewMatchDto();
                     ParticipantStatsDto psd = new ParticipantStatsDto();
+                    ParticipantTimelineDto ptd = new ParticipantTimelineDto();
 
                     participantIndex = matchDto.get(i).getParticipantIdentities().get(j).getParticipantId() - 1;
                     participantDto.add(matchDto.get(i).getParticipants().get(participantIndex));
@@ -96,7 +94,7 @@ public class IndexController {
                         r_win = "패배";
                     }
                     vmd = viewMatchParser.setViewMatch(matches.get(i).getChampion(), championName, r_name, psd.getKills(), psd.getDeaths(), psd.getAssists(), psd.isWin(), r_win, psd.getItem0(),
-                            psd.getItem1(), psd.getItem2(), psd.getItem3(), psd.getItem4(), psd.getItem5());
+                            psd.getItem1(), psd.getItem2(), psd.getItem3(), psd.getItem4(), psd.getItem5(), psd.getChampLevel(), psd.getTotalDamageDealtToChampions());
 
                     viewMatchDto.add(vmd);
                     break;

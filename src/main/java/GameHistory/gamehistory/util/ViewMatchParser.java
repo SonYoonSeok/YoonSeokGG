@@ -4,7 +4,8 @@ import GameHistory.gamehistory.web.dto.ViewMatchDto;
 
 public class ViewMatchParser {
 
-    public ViewMatchDto setViewMatch(int championId, String championName, String r_name, int kills, int deaths, int assists, boolean win, String r_win, int item0, int item1, int item2, int item3, int item4, int item5) {
+    public ViewMatchDto setViewMatch(int championId, String championName, String r_name, int kills, int deaths, int assists, boolean win, String r_win, int item0, int item1, int item2, int item3, int item4, int item5,
+                                     int level, double damageAmount) {
 
         ViewMatchDto matchDto = new ViewMatchDto();
         double kda;
@@ -31,6 +32,8 @@ public class ViewMatchParser {
         matchDto.setItem3(item3);
         matchDto.setItem4(item4);
         matchDto.setItem5(item5);
+        matchDto.setLevel(level);
+        matchDto.setDamageAmount(damageAmount);
 
         return matchDto;
     }
