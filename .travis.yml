@@ -26,9 +26,9 @@ before_install:
 
 deploy:
   - provider: s3
-    access_key_id: AKIAQARVTQENAKJW3YUI         # Travis CI 에서 IAM 사용자 엑세스 키
+    access_key_id: $AWS_ACCESS_KEY         # Travis CI 에서 IAM 사용자 엑세스 키
 
-    secret_access_key: 0F-V3YDlyfMK_-=    # Travis CI 에서 IAM 사용자 비밀 엑세스 키
+    secret_access_key: $AWS_SECRET_KEY     # Travis CI 에서 IAM 사용자 비밀 엑세스 키
 
     bucket: yoonseok-gg        # S3 Bucket 이름
     region: ap-northeast-2
